@@ -11,6 +11,8 @@ class CategoriesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchField: UITextField!
+    
     let categoriesService = CategoriesService()
     
     var categories = [Category]()
@@ -28,6 +30,18 @@ class CategoriesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellReuseIdentifier: "CategoryCell")
+        searchField.delegate = self
+    }
+    
+    func setPage(pageNumber: Int) {
+        Task {
+            let categoriesPage =  await categoriesService.getPageAsync(pageNumber: pageNumber)
+            if let safePage = categoriesPage {
+                categories = safePage.items
+                totalPages = safePage.pagesCount
+                tableView.reloadData()
+            }
+        }
     }
     
     func addPage(pageNumber: Int) {
@@ -36,6 +50,27 @@ class CategoriesViewController: UIViewController {
             if let safePage = categoriesPage {
                 categories.append(contentsOf: safePage.items)
                 totalPages = safePage.pagesCount
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    func search(pageNumber: Int, filter: String) {
+        Task {
+            let categoriesPage =  await categoriesService.getPageAsync(pageNumber: pageNumber, filter: filter)
+            if let safePage = categoriesPage {
+                categories = safePage.items
+                totalPages = safePage.pagesCount
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    func addSearchPage(pageNumber: Int, filter: String) {
+        Task {
+            let categoriesPage =  await categoriesService.getPageAsync(pageNumber: pageNumber, filter: filter)
+            if let safePage = categoriesPage {
+                categories.append(contentsOf: safePage.items)
                 tableView.reloadData()
             }
         }
@@ -83,6 +118,31 @@ extension CategoriesViewController: UITableViewDelegate {
                 currentPage += 1
                 addPage(pageNumber: currentPage)
             }
+        }
+    }
+}
+
+//MARK: - UITextFieldDelegate
+extension CategoriesViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let filter = searchField.text {
+            currentPage = 1
+            if filter.isEmpty {
+                setPage(pageNumber: currentPage)
+            } else {
+                search(pageNumber: currentPage, filter: filter)
+            }
+        }
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if let search = textField.text, !search.isEmpty {
+            return true
+        } else {
+            return false
         }
     }
 }

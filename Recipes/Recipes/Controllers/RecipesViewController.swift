@@ -30,6 +30,7 @@ class RecipesViewController: UIViewController {
         
         setPage(pageNumber: currentPage)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         searchField.delegate = self
     }

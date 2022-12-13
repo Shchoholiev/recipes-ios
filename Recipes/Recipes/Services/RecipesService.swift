@@ -18,8 +18,8 @@ class RecipesService: ServiceBase {
         if let safeUrl = url {
             do {
                 let (data, _) = try await URLSession.shared.data(from: safeUrl)
-                let categories = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
-                return categories
+                let recipes = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
+                return recipes
             } catch {
                 print(error)
             }
@@ -33,8 +33,8 @@ class RecipesService: ServiceBase {
         if let safeUrl = url {
             do {
                 let (data, _) = try await URLSession.shared.data(from: safeUrl)
-                let categories = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
-                return categories
+                let recipes = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
+                return recipes
             } catch {
                 print(error)
             }
@@ -48,8 +48,8 @@ class RecipesService: ServiceBase {
         if let safeUrl = url {
             do {
                 let (data, _) = try await URLSession.shared.data(from: safeUrl)
-                let categories = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
-                return categories
+                let recipes = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
+                return recipes
             } catch {
                 print(error)
             }

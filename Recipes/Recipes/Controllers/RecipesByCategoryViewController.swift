@@ -21,6 +21,10 @@ class RecipesByCategoryViewController: UIViewController {
     
     var recipes = [Recipe]()
     
+    var currentPage = 1
+    
+    var totalPages = 1
+    
     var chosenRecipe: Recipe?
     
     override func viewDidLoad() {
@@ -28,24 +32,36 @@ class RecipesByCategoryViewController: UIViewController {
         
         if let safeCategory = category {
             categoryName.text = safeCategory.name
-            setPage(pageNumber: 1)
-            
+            setPage(pageNumber: currentPage)
             tableView.dataSource = self
+            tableView.delegate = self
             tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         }
     }
     
     func setPage(pageNumber: Int) {
-        if let categoryId = category?.id {
-            Task {
-                let recipesPage =  await recipesService.getPageAsync(pageNumber: 1, categoryId: categoryId)
+        Task {
+            let recipesPage =  await recipesService.getPageAsync(pageNumber: pageNumber)
+            if let safePage = recipesPage {
+                recipes = safePage.items
+                totalPages = safePage.pagesCount
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    func addPage(pageNumber: Int) {
+        Task {
+            if let safeCategory = category {
+                let recipesPage =  await recipesService.getPageAsync(pageNumber: pageNumber, categoryId: safeCategory.id)
                 if let safePage = recipesPage {
-                    recipes = safePage.items
+                    recipes.append(contentsOf: safePage.items)
                     tableView.reloadData()
                 }
             }
         }
     }
+
     
     @objc func showRecipe(sender: UIView) {
         Task {
@@ -87,5 +103,18 @@ extension RecipesByCategoryViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension RecipesByCategoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastItem = recipes.count - 1
+        if indexPath.row == lastItem {
+            if currentPage < totalPages {
+                currentPage += 1
+                addPage(pageNumber: currentPage)
+            }
+        }
     }
 }
