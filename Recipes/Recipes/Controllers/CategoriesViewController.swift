@@ -57,7 +57,7 @@ class CategoriesViewController: UIViewController {
     
     func search(pageNumber: Int, filter: String) {
         Task {
-            let categoriesPage =  await categoriesService.getPageAsync(pageNumber: pageNumber, filter: filter)
+            let categoriesPage = await categoriesService.getPageAsync(pageNumber: pageNumber, filter: filter)
             if let safePage = categoriesPage {
                 categories = safePage.items
                 totalPages = safePage.pagesCount
@@ -139,10 +139,6 @@ extension CategoriesViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if let search = textField.text, !search.isEmpty {
-            return true
-        } else {
-            return false
-        }
+        return true
     }
 }

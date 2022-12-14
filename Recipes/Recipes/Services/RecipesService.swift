@@ -29,14 +29,17 @@ class RecipesService: ServiceBase {
     }
     
     func getPageAsync(pageNumber: Int, filter: String) async -> PaginationWrapper<Recipe>? {
-        let url = URL(string: "\(baseUrl)/page/\(pageNumber)/\(filter)")
-        if let safeUrl = url {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: safeUrl)
-                let recipes = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
-                return recipes
-            } catch {
-                print(error)
+        let encodedFilter = filter.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed)
+        if let safeFilter = encodedFilter {
+            let url = URL(string: "\(baseUrl)/page/\(pageNumber)/\(safeFilter)")
+            if let safeUrl = url {
+                do {
+                    let (data, _) = try await URLSession.shared.data(from: safeUrl)
+                    let recipes = try JSONDecoder().decode(PaginationWrapper<Recipe>.self, from: data)
+                    return recipes
+                } catch {
+                    print(error)
+                }
             }
         }
         

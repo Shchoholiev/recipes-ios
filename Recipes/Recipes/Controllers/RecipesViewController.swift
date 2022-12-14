@@ -137,11 +137,7 @@ extension RecipesViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if let search = textField.text, !search.isEmpty {
-            return true
-        } else {
-            return false
-        }
+        return true
     }
 }
 
