@@ -194,7 +194,7 @@
                                         <rect key="frame" x="0.0" y="210" width="390" height="530"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-6i-C7v">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="1030"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="580"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rK-gZ-lYb">
                                                         <rect key="frame" x="25" y="0.0" width="340" height="20.333333333333332"/>
@@ -271,7 +271,7 @@
                                         <constraints>
                                             <constraint firstItem="xcD-6i-C7v" firstAttribute="width" secondItem="axh-2T-MX5" secondAttribute="width" id="6JO-RQ-MiL"/>
                                             <constraint firstItem="xcD-6i-C7v" firstAttribute="trailing" secondItem="YKh-if-FWs" secondAttribute="trailing" id="Ofq-e1-4wr"/>
-                                            <constraint firstItem="xcD-6i-C7v" firstAttribute="height" secondItem="axh-2T-MX5" secondAttribute="height" constant="500" id="RuV-C5-EW9"/>
+                                            <constraint firstItem="xcD-6i-C7v" firstAttribute="height" secondItem="axh-2T-MX5" secondAttribute="height" constant="50" id="RuV-C5-EW9"/>
                                             <constraint firstItem="xcD-6i-C7v" firstAttribute="top" secondItem="YKh-if-FWs" secondAttribute="top" id="Zrw-TC-TIR"/>
                                             <constraint firstItem="xcD-6i-C7v" firstAttribute="bottom" secondItem="YKh-if-FWs" secondAttribute="bottom" id="pOF-06-VCT"/>
                                             <constraint firstItem="xcD-6i-C7v" firstAttribute="leading" secondItem="YKh-if-FWs" secondAttribute="leading" id="qOd-oQ-a7p"/>
@@ -304,6 +304,7 @@
                         <outlet property="ingredients" destination="wxP-SM-ioo" id="vhr-Cl-TAJ"/>
                         <outlet property="recipeName" destination="E8l-ai-Gkn" id="g8s-en-reW"/>
                         <outlet property="recipeText" destination="zba-GF-5ir" id="HG6-ma-LYh"/>
+                        <outlet property="scrollView" destination="gYe-PX-Xq1" id="WHF-xM-Cxp"/>
                         <outlet property="thumbnail" destination="ras-pa-rEN" id="vUR-BF-gmW"/>
                     </connections>
                 </viewController>

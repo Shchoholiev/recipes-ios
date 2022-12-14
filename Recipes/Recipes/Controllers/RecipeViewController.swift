@@ -19,6 +19,8 @@ class RecipeViewController: UIViewController {
     
     @IBOutlet weak var recipeText: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var recipe: Recipe?
     
     let helpersService = HelpersService()
@@ -38,5 +40,10 @@ class RecipeViewController: UIViewController {
             ingredients.text = safeRecipe.ingredients
             recipeText.text = safeRecipe.text
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let scrollHeight = recipeText.frame.origin.y + recipeText.frame.size.height + 50
+        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, scrollHeight)
     }
 }
