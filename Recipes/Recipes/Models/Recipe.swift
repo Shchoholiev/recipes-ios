@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Recipe : Decodable {
+class Recipe: Codable {
     
     let id: Int
     

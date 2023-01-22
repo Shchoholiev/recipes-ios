@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Category : Decodable {
+class Category : Codable {
     
     let id: Int
     

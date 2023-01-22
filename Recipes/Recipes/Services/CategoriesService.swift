@@ -45,4 +45,29 @@ class CategoriesService: ServiceBase {
         
         return nil
     }
+    
+    func createCategory(_ category: Category) async -> Bool {
+        let url = URL(string: baseUrl)
+        if let safeUrl = url {
+            do {
+                let jsonEncoder = JSONEncoder()
+                let jsonData = try jsonEncoder.encode(category)
+                
+                var request = URLRequest(url: safeUrl)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = jsonData
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let str = String(data: data, encoding: .utf8)
+                if let response = str, response.isEmpty {
+                    return true
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return false
+    }
 }

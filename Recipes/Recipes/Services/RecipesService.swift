@@ -75,4 +75,29 @@ class RecipesService: ServiceBase {
         
         return nil
     }
+    
+    func createRecipe(_ recipe: Recipe) async -> Bool {
+        let url = URL(string: baseUrl)
+        if let safeUrl = url {
+            do {
+                let jsonEncoder = JSONEncoder()
+                let jsonData = try jsonEncoder.encode(recipe)
+                
+                var request = URLRequest(url: safeUrl)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = jsonData
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let str = String(data: data, encoding: .utf8)
+                if let response = str, response.isEmpty {
+                    return true
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return false
+    }
 }
