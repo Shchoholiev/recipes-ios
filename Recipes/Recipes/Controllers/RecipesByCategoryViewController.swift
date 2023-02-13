@@ -63,7 +63,6 @@ class RecipesByCategoryViewController: UIViewController {
             }
         }
     }
-
     
     @objc func showRecipe(sender: UIView) {
         Task {

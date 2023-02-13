@@ -27,12 +27,16 @@ class RecipesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
-        setPage(pageNumber: currentPage)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         searchField.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setPage(pageNumber: currentPage)
     }
     
     func setPage(pageNumber: Int) {
@@ -93,6 +97,10 @@ class RecipesViewController: UIViewController {
             break
         }
     }
+    
+    @IBAction func unwindToRecipes( _ seg: UIStoryboardSegue) {
+        setPage(pageNumber: 1)
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -110,9 +118,12 @@ extension RecipesViewController: UITableViewDataSource {
         cell.recipeWrapper.tag = recipe.id
         cell.recipeWrapper.setOnClickListener(action: showRecipe)
         Task {
-            let imageData = await helpersService.downloadImage(from: recipe.thumbnail)
-            if let safeData = imageData {
-                cell.thumbnail.image = UIImage(data: safeData)
+            if !recipe.thumbnail.isEmpty {
+                let imageData = await helpersService.downloadImage(from: recipe.thumbnail)
+                if let safeData = imageData {
+                    cell.thumbnail.contentMode = .scaleAspectFill
+                    cell.thumbnail.image = UIImage(data: safeData)
+                }
             }
         }
         

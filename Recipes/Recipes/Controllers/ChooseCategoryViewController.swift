@@ -1,13 +1,13 @@
 //
-//  ViewController.swift
+//  ChooseCategoryViewController.swift
 //  Recipes
 //
-//  Created by Serhii Shchoholiev on 12/6/22.
+//  Created by Serhii Shchoholiev on 1/22/23.
 //
 
 import UIKit
 
-class CategoriesViewController: UIViewController {
+class ChooseCategoryViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,21 +20,16 @@ class CategoriesViewController: UIViewController {
     var currentPage = 1
     
     var totalPages = 1
-    
-    var chosenCategory: Category?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
+        addPage(pageNumber: currentPage)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellReuseIdentifier: "CategoryCell")
+        tableView.register(UINib(nibName: "CategoryChooseCell", bundle: nil), forCellReuseIdentifier: "CategoryChooseCell")
         searchField.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        setPage(pageNumber: currentPage)
     }
     
     func setPage(pageNumber: Int) {
@@ -80,41 +75,48 @@ class CategoriesViewController: UIViewController {
         }
     }
     
-    @objc func showRecipesByCategory(sender: UIView) {
-        chosenCategory = categories.first(where: { $0.id == sender.tag } )
-        self.performSegue(withIdentifier: "showRecipesByCategory", sender: nil)
+    var chooseCategoryCallback: ((_ category: Category) -> Void)? = nil
+    
+    @objc func chooseCategory(sender: UIView) {
+        let chosenCategory = categories.first(where: { $0.id == sender.tag } )
+        if let safeCategory = chosenCategory, let callback = chooseCategoryCallback {
+            callback(safeCategory)
+        }
+        performSegue(withIdentifier: "unwindToAddRecipe", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "showRecipesByCategory":
-            let view = segue.destination as! RecipesByCategoryViewController
-            view.category = chosenCategory
-        default:
-            break
+    @objc func deleteCategory(sender: UIView) {
+        let id = sender.tag
+        Task {
+            var succeeded = await categoriesService.deleteAsync(id: id)
+            if succeeded {
+                setPage(pageNumber: 1)
+            }
         }
     }
 }
 
 //MARK: - UITableViewDataSource
-extension CategoriesViewController: UITableViewDataSource {
+extension ChooseCategoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryChooseCell", for: indexPath) as! CategoryChooseCell
         let category = categories[indexPath.row]
         cell.categoryWrapper.tag = category.id
         cell.categoryName.text = category.name
-        cell.categoryWrapper.setOnClickListener(action: showRecipesByCategory)
+        cell.categoryWrapper.setOnClickListener(action: chooseCategory)
+        cell.deleteButton.tag = category.id
+        cell.deleteButton.setOnClickListener(action: deleteCategory)
         return cell
     }
 }
 
 //MARK: - UITableViewDelegate
-extension CategoriesViewController: UITableViewDelegate {
+extension ChooseCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastItem = categories.count - 1
         if indexPath.row == lastItem {
@@ -127,7 +129,7 @@ extension CategoriesViewController: UITableViewDelegate {
 }
 
 //MARK: - UITextFieldDelegate
-extension CategoriesViewController: UITextFieldDelegate {
+extension ChooseCategoryViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let filter = searchField.text {
@@ -146,3 +148,4 @@ extension CategoriesViewController: UITextFieldDelegate {
         return true
     }
 }
+

@@ -100,4 +100,50 @@ class RecipesService: ServiceBase {
         
         return false
     }
+    
+    func deleteAsync(id: Int) async -> Bool {
+        let url = URL(string: "\(baseUrl)/\(id)")
+        if let safeUrl = url {
+            do {
+                var request = URLRequest(url: safeUrl)
+                request.httpMethod = "DELETE"
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let str = String(data: data, encoding: .utf8)
+                if let response = str, response.isEmpty {
+                    return true
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return false
+    }
+    
+    func updateRecipe(_ recipe: Recipe) async -> Bool {
+        let url = URL(string: "\(baseUrl)/\(recipe.id)")
+        if let safeUrl = url {
+            do {
+                let jsonEncoder = JSONEncoder()
+                let jsonData = try jsonEncoder.encode(recipe)
+                let json = String(data: jsonData, encoding: .utf8)
+                
+                var request = URLRequest(url: safeUrl)
+                request.httpMethod = "PUT"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = jsonData
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let str = String(data: data, encoding: .utf8)
+                if let response = str, response.isEmpty {
+                    return true
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return false
+    }
 }

@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		90118352294A19730081254C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90118351294A19730081254C /* Launch Screen.storyboard */; };
+		90179DEB295A344D003F1800 /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90179DEA295A344D003F1800 /* AddRecipeViewController.swift */; };
 		901EE70B2948210600B5EBBA /* RecipesByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901EE70A2948210600B5EBBA /* RecipesByCategoryViewController.swift */; };
+		9084E828297D9F9700A08F28 /* ChooseCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9084E827297D9F9700A08F28 /* ChooseCategoryViewController.swift */; };
 		90A259A3293FF4050017E68B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259A2293FF4050017E68B /* AppDelegate.swift */; };
 		90A259A5293FF4050017E68B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259A4293FF4050017E68B /* SceneDelegate.swift */; };
 		90A259A7293FF4050017E68B /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259A6293FF4050017E68B /* CategoriesViewController.swift */; };
@@ -29,11 +31,17 @@
 		90A259D9294676CC0017E68B /* HelpersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259D8294676CC0017E68B /* HelpersService.swift */; };
 		90A259DC29468A9E0017E68B /* UIViewClickExstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259DB29468A9E0017E68B /* UIViewClickExstension.swift */; };
 		90A259DE29477ECA0017E68B /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A259DD29477ECA0017E68B /* RecipeViewController.swift */; };
+		90C6E77E298341FB000F5B5E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C6E77D298341FB000F5B5E /* UIViewControllerExtensions.swift */; };
+		90C6E7862984B8FE000F5B5E /* CategoryChooseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C6E7852984B8FE000F5B5E /* CategoryChooseCell.xib */; };
+		90C6E7882984B90D000F5B5E /* CategoryChooseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C6E7872984B90D000F5B5E /* CategoryChooseCell.swift */; };
+		90DACF3A2960AEA7001468D1 /* ImageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DACF392960AEA7001468D1 /* ImageInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		90118351294A19730081254C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		90179DEA295A344D003F1800 /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		901EE70A2948210600B5EBBA /* RecipesByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesByCategoryViewController.swift; sourceTree = "<group>"; };
+		9084E827297D9F9700A08F28 /* ChooseCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryViewController.swift; sourceTree = "<group>"; };
 		90A2599F293FF4050017E68B /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A259A2293FF4050017E68B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90A259A4293FF4050017E68B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +64,10 @@
 		90A259D8294676CC0017E68B /* HelpersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpersService.swift; sourceTree = "<group>"; };
 		90A259DB29468A9E0017E68B /* UIViewClickExstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewClickExstension.swift; sourceTree = "<group>"; };
 		90A259DD29477ECA0017E68B /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		90C6E77D298341FB000F5B5E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		90C6E7852984B8FE000F5B5E /* CategoryChooseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryChooseCell.xib; sourceTree = "<group>"; };
+		90C6E7872984B90D000F5B5E /* CategoryChooseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryChooseCell.swift; sourceTree = "<group>"; };
+		90DACF392960AEA7001468D1 /* ImageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,10 +128,12 @@
 			isa = PBXGroup;
 			children = (
 				90A259A6293FF4050017E68B /* CategoriesViewController.swift */,
+				9084E827297D9F9700A08F28 /* ChooseCategoryViewController.swift */,
 				90A259CF294664500017E68B /* RecipesViewController.swift */,
 				90A259D129466A6D0017E68B /* TabBarController.swift */,
 				90A259DD29477ECA0017E68B /* RecipeViewController.swift */,
 				901EE70A2948210600B5EBBA /* RecipesByCategoryViewController.swift */,
+				90179DEA295A344D003F1800 /* AddRecipeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -130,6 +144,7 @@
 				90A259BA293FF9AE0017E68B /* Category.swift */,
 				90A259C0293FFB9D0017E68B /* Recipe.swift */,
 				90A259CD294040570017E68B /* PaginationWrapper.swift */,
+				90DACF392960AEA7001468D1 /* ImageInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -149,7 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				90A259C9294038860017E68B /* CategoryCell.swift */,
+				90C6E7872984B90D000F5B5E /* CategoryChooseCell.swift */,
 				90A259CA294038860017E68B /* CategoryCell.xib */,
+				90C6E7852984B8FE000F5B5E /* CategoryChooseCell.xib */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -166,6 +183,7 @@
 		90A259DA29468A800017E68B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				90C6E77D298341FB000F5B5E /* UIViewControllerExtensions.swift */,
 				90A259DB29468A9E0017E68B /* UIViewClickExstension.swift */,
 			);
 			path = Extensions;
@@ -229,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90C6E7862984B8FE000F5B5E /* CategoryChooseCell.xib in Resources */,
 				90118352294A19730081254C /* Launch Screen.storyboard in Resources */,
 				90A259D729466EF70017E68B /* RecipeCell.xib in Resources */,
 				90A259AC293FF4070017E68B /* Assets.xcassets in Resources */,
@@ -244,16 +263,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90179DEB295A344D003F1800 /* AddRecipeViewController.swift in Sources */,
+				90C6E77E298341FB000F5B5E /* UIViewControllerExtensions.swift in Sources */,
 				90A259D629466EF70017E68B /* RecipeCell.swift in Sources */,
 				90A259C5293FFCC20017E68B /* ServiceBase.swift in Sources */,
 				90A259D229466A6D0017E68B /* TabBarController.swift in Sources */,
 				90A259A7293FF4050017E68B /* CategoriesViewController.swift in Sources */,
 				90A259A3293FF4050017E68B /* AppDelegate.swift in Sources */,
 				90A259D0294664500017E68B /* RecipesViewController.swift in Sources */,
+				9084E828297D9F9700A08F28 /* ChooseCategoryViewController.swift in Sources */,
 				90A259C1293FFB9D0017E68B /* Recipe.swift in Sources */,
 				90A259A5293FF4050017E68B /* SceneDelegate.swift in Sources */,
 				90A259BB293FF9AE0017E68B /* Category.swift in Sources */,
 				90A259C3293FFC290017E68B /* RecipesService.swift in Sources */,
+				90DACF3A2960AEA7001468D1 /* ImageInfo.swift in Sources */,
+				90C6E7882984B90D000F5B5E /* CategoryChooseCell.swift in Sources */,
 				90A259DC29468A9E0017E68B /* UIViewClickExstension.swift in Sources */,
 				901EE70B2948210600B5EBBA /* RecipesByCategoryViewController.swift in Sources */,
 				90A259CE294040570017E68B /* PaginationWrapper.swift in Sources */,

@@ -46,7 +46,7 @@ class CategoriesService: ServiceBase {
         return nil
     }
     
-    func createCategory(_ category: Category) async -> Bool {
+    func createCategory(_ category: Category) async -> Int {
         let url = URL(string: baseUrl)
         if let safeUrl = url {
             do {
@@ -57,6 +57,26 @@ class CategoriesService: ServiceBase {
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = jsonData
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let str = String(data: data, encoding: .utf8)
+                if let response = str, let id = Int(response) {
+                    return id
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return 0
+    }
+    
+    func deleteAsync(id: Int) async -> Bool {
+        let url = URL(string: "\(baseUrl)/\(id)")
+        if let safeUrl = url {
+            do {
+                var request = URLRequest(url: safeUrl)
+                request.httpMethod = "DELETE"
                 
                 let (data, _) = try await URLSession.shared.data(for: request)
                 let str = String(data: data, encoding: .utf8)
