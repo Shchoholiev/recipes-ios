@@ -48,5 +48,13 @@ Select a simulator or device in Xcode, then build and run (⌘R).
 ## Configuration
 If the API endpoint differs from the default, update the base URL in `ServiceBase.swift`:
 ```swift
-baseUrl = "https://api.example.com"
+// Change this base URL to point to your API endpoint if different
+class ServiceBase {
+    
+    let baseUrl: String
+    
+    init(url: String) {
+        baseUrl = "https://sh-recipes-api.azurewebsites.net/api\(url)"
+    }
+}
 ```
